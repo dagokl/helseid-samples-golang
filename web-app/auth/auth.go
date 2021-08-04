@@ -20,7 +20,7 @@ import (
 
 // settings
 
-const ClientId = "a426b635-fbc0-4bb1-a18a-4c93280c1981"
+const ClientId = "golang-web-app"
 
 var scopes = []string{"openid", "profile", "norsk-helsenett:golang-sample-api/foo"}
 
