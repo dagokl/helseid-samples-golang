@@ -11,7 +11,8 @@ go build main.go
 ```
 
 ## Before using snipets of this in your own code:
-
+ - This is NOT meant as an example of how to create a safe web app. It is only intended to give a gist of how to you can implement helseID in your application.
+ - This application does NOT use https and is therefore unsafe.
  - The configuration options are at the top of auth.go.
  - In this sample all private keys are stored in source code because we want the program to work without any configuration. When using any of the code in your own application DO NOT store any private keys in source code. One alternative is to store them in environment variables and access them with os.Getenv.
 	 - Change the key in sessionsstorage.go to a secret and cryptographically random string (e.g. use the crypto/rand package) and DO NOT store this in source code.
@@ -43,7 +44,7 @@ First, we retrieve the saved id token. Then we delete the cookie "auth-session",
 ## Security features
 
 ### State
-State is a random string is generated at /login. It is saved and then appended to the redirect to helseid/connect/auth. When the user is sent back to /callback this request should contain the same state that we created earlier, if not, we abort the authentication process. State is a security measurement to prevent Cross-site request forgery(CSRF).
+State is a random string generated at /login. It is saved and then appended to the redirect to helseid/connect/auth. When the user is sent back to /callback this request should contain the same state that we created earlier, if not, we abort the authentication process. State is a security measurement to prevent Cross-site request forgery(CSRF).
 
 ### Nonce
 Nonce is very similar to state. The only difference is that it is not in the params of the request to /callback, it is instead inside the payload of the id token which is in the params of the request to /callback. Just as with state, if it does not match the nonce created earlier, we abort the authentication process.
